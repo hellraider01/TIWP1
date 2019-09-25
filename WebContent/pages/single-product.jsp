@@ -1,4 +1,4 @@
-<jsp:include page="partials/header.jsp" />
+<jsp:include page="../partials/header.jsp" />
 
 <!-- breadcrumb start-->
 <section class="breadcrumb breadcrumb_bg">
@@ -604,4 +604,4 @@
 	</div>
 </section>
 <!--::subscribe_area part end::-->
-<jsp:include page="partials/footer.jsp" />
+<jsp:include page="../partials/footer.jsp" />
