@@ -1,6 +1,7 @@
 package com.frontend.servelet;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,52 +19,142 @@ import com.frontend.servicio.ProductStore;
 @WebServlet("/IndexServlet")
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	// Url automaticas <comando, vista>
+	HashMap<String, String> vistas = new HashMap<String, String>();
+
 	ProductStore ps = new ProductStore();
-    List<Product> productos;   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public IndexServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    
+	List<Product> productos;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public IndexServlet() {
+		super();
+		// acciones de listar
+		vistas.put("home", "home.jsp");
+		vistas.put("verlogin", "login.jsp");
+		vistas.put("verProductos", "pages/single-product.jsp");
+		vistas.put("buscarProductos", "pages/single-product.jsp");
+		vistas.put("verusuaios", "pages/single-product.jsp");
+		// acciones de crear, actualizar o eleiminar
+	}
 
 	@Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
 		productos = ps.init();
-		
+
 	}
 
-
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String accion = request.getParameter("accion");
-		if(accion.compareTo("home")==0) {
-			request.getRequestDispatcher("home.jsp").forward(request, response);
-		}
-		if(accion.compareTo("listar")==0) {
-			response.getWriter().append("Peticion 2 at: ").append(request.getRequestURI());
-		}
-		if(accion.compareTo("login")==0) {
-			System.out.println(request.getRequestURI());
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+		String view = vistas.get(accion);
+		System.out.print(view);
+		if (view == null) {
+			view = "404.jsp";
+			request.getRequestDispatcher(view).forward(request, response);
+		} else {
+			System.out.println(view);
+			switch (accion) {
+			case "home":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "verlogin":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "verProductos":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "verusuaios":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "buscarProductos":
+				// codigo de accion con el Storage
+				System.out.println(request.getParameter("nombre"));
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "irNuevoProductos":
+				// codigo de accion con el Storage
+				System.out.println(request.getParameter("nombre"));
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "irNuevoUsuario":
+				// codigo de accion con el Storage
+				System.out.println(request.getParameter("nombre"));
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			default:
+				request.getRequestDispatcher(view).forward(request, response);
+			}
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String accion = request.getParameter("accion");
+		String view = vistas.get(accion);
+		if (view == null) {
+			view = "404.jsp";
+			request.getRequestDispatcher(view).forward(request, response);
+		} else {
+			System.out.println(view);
+			switch (accion) {
+			case "home":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "logearse":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "logout":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "crearProducto":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "actualizarProducto":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "eliminarProducto":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "crearUsuario":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "actualizarUsuario":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			case "eliminarUsuario":
+				// codigo de accion con el Storage
+				request.getRequestDispatcher(view).forward(request, response);
+				break;
+			default:
+				request.getRequestDispatcher(view).forward(request, response);
+			}
+		}
 	}
 
 }

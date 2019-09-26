@@ -5,7 +5,7 @@
 </head>
 <body>
     <%
-        String redirectURL = "/frontend/IndexServlet?accion=home";
+        String redirectURL = "IndexServlet?accion=home";
         response.sendRedirect(redirectURL);
     %>
 </body>
