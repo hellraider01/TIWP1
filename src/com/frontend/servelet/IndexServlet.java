@@ -30,13 +30,23 @@ public class IndexServlet extends HttpServlet {
 	 */
 	public IndexServlet() {
 		super();
-		// acciones de listar
+		// acciones de listar, ajustar archivo de referencia de cada "comando"
 		vistas.put("home", "home.jsp");
 		vistas.put("verlogin", "login.jsp");
 		vistas.put("verProductos", "pages/single-product.jsp");
 		vistas.put("buscarProductos", "pages/single-product.jsp");
 		vistas.put("verusuaios", "pages/single-product.jsp");
+		vistas.put("irNuevoProductos", "pages/single-product.jsp");
+		vistas.put("irNuevoUsuario", "pages/single-product.jsp");
 		// acciones de crear, actualizar o eleiminar
+		vistas.put("logearse", "pages/single-product.jsp");
+		vistas.put("logout", "pages/single-product.jsp");
+		vistas.put("crearProducto", "pages/single-product.jsp");
+		vistas.put("actualizarProducto", "pages/single-product.jsp");
+		vistas.put("eliminarProducto", "pages/single-product.jsp");
+		vistas.put("crearUsuario", "pages/single-product.jsp");
+		vistas.put("actualizarUsuario", "pages/single-product.jsp");
+		vistas.put("irNuevoUsuario", "pages/single-product.jsp");
 	}
 
 	@Override
@@ -86,12 +96,10 @@ public class IndexServlet extends HttpServlet {
 				break;
 			case "irNuevoProductos":
 				// codigo de accion con el Storage
-				System.out.println(request.getParameter("nombre"));
 				request.getRequestDispatcher(view).forward(request, response);
 				break;
-			case "irNuevoUsuario":
+			case "eliminarUsuario":
 				// codigo de accion con el Storage
-				System.out.println(request.getParameter("nombre"));
 				request.getRequestDispatcher(view).forward(request, response);
 				break;
 			default:
@@ -115,10 +123,6 @@ public class IndexServlet extends HttpServlet {
 		} else {
 			System.out.println(view);
 			switch (accion) {
-			case "home":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
 			case "logearse":
 				// codigo de accion con el Storage
 				request.getRequestDispatcher(view).forward(request, response);
