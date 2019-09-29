@@ -114,8 +114,9 @@
                                 	</div>
                                  -->
 							</div>
-							<a id="search_1" href="IndexServlet?accion=verlogin"><i
-								class="ti-search"></i>Iniciar Sesion</a>
+							<a href="IndexServlet?accion=verlogin"><i
+								class="ti-user"></i></a>
+								
 								<a id="search_1" href="javascript:void(0)">
 								<i class="ti-search"></i></a>
 						</div>
