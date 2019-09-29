@@ -7,7 +7,7 @@ public class BuscarProductosCommand implements IHandlerCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		return "login.jsp";
 	}
 

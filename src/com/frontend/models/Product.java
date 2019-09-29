@@ -1,16 +1,14 @@
 package com.frontend.models;
 
 public class Product {
-	
+
 	private int id;
-	
+
 	private String nombre;
-	
+
 	private double precio;
-	
+
 	private boolean activo;
-	
-	
 
 	public Product() {
 		super();
@@ -62,5 +60,5 @@ public class Product {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
+
 }

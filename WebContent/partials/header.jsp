@@ -1,6 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"
+	import="java.util.List, com.frontend.models.Categoria"%>
 <!doctype html>
 <html lang="es">
-
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -37,7 +39,7 @@
 			<div class="row align-items-center justify-content-center">
 				<div class="col-lg-11">
 					<nav class="navbar navbar-expand-lg navbar-light">
-						<a class="navbar-brand" href="index.html"> <img
+						<a class="navbar-brand" href="IndexServlet?accion=home"> <img
 							src="static/img/logo.png" alt="logo">
 						</a>
 						<button class="navbar-toggler" type="button"
@@ -50,8 +52,20 @@
 						<div class="collapse navbar-collapse main-menu-item"
 							id="navbarSupportedContent">
 							<ul class="navbar-nav">
-								<li class="nav-item"><a class="nav-link" href="index.html">Home</a>
-								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="IndexServlet?accion=home">Home</a> 
+									<% List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias"); %>
+									<%
+										if(categorias!=null){
+											for (Categoria cat : categorias) {
+									%>
+											<li class="nav-item"><a class="nav-link"
+											href="IndexServlet?accion=verlogin"><%=cat.getNombre()%></a></li>
+								<%
+											}
+										}
+								%>
+								<!-- 
 								<li class="nav-item dropdown"><a
 									class="nav-link dropdown-toggle" href="blog.html"
 									id="navbarDropdown_1" role="button" data-toggle="dropdown"
@@ -83,9 +97,9 @@
 										<a class="dropdown-item" href="blog.html"> blog</a> <a
 											class="dropdown-item" href="single-blog.html">Single blog</a>
 									</div></li>
-
+									 
 								<li class="nav-item"><a class="nav-link"
-									href="contact.html">Contact</a></li>
+									href="contact.html">Contact</a></li>-->
 							</ul>
 						</div>
 						<div class="hearer_icon d-flex">
@@ -95,13 +109,15 @@
 									aria-expanded="false"> <i class="ti-bag"></i>
 								</a>
 								<!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <div class="single_product">
-    
-                                    </div>
-                                </div> -->
+                                    	<div class="single_product">
+                                    	</div>
+                                	</div>
+                                 -->
 							</div>
-							<a id="search_1" href="javascript:void(0)"><i
-								class="ti-search"></i></a>
+							<a id="search_1" href="IndexServlet?accion=verlogin"><i
+								class="ti-search"></i>Iniciar Sesion</a>
+								<a id="search_1" href="javascript:void(0)">
+								<i class="ti-search"></i></a>
 						</div>
 					</nav>
 				</div>
@@ -109,9 +125,10 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container ">
-				<form class="d-flex justify-content-between search-inner" method="GET" action="IndexServlet">
-					<input type="hidden" name="accion" value="buscarProductos"/>
-					<input type="text" class="form-control" id="search_input"
+				<form class="d-flex justify-content-between search-inner"
+					method="GET" action="IndexServlet">
+					<input type="hidden" name="accion" value="buscarProductos" /> <input
+						type="text" class="form-control" id="search_input"
 						placeholder="Search Here" name="nombre">
 					<button type="submit" class="btn"></button>
 					<span class="ti-close" id="close_search" title="Close Search"></span>

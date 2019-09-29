@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginCommand implements IHandlerCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {	
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		return "login.jsp";
 	}
 

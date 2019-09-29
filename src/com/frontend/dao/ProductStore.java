@@ -6,65 +6,81 @@ import javax.servlet.http.HttpServletRequest;
 import com.frontend.models.Product;
 
 public class ProductStore {
-	
-	private List<Product> productos=new ArrayList<Product>();
-	String[] nombres = { "Champu", "Ordenador", "Teclado", "Playstation", "Portatil", "Bascula", "Tornillo", "Servidor"};
-	int ids=0;
-	
-	public List<Product> init() {
-		for(String nom: nombres) {
-			double precio = Math.random()*25 + 1;
+
+	private static List<Product> productos = new ArrayList<Product>();
+	private static String[] nombres = { "Champu", "Ordenador", "Teclado", "Playstation", "Portatil", "Bascula",
+			"Tornillo", "Servidor" };
+	private static int ids = 0;
+
+	public static void init() {
+		for (String nom : nombres) {
+			double precio = Math.random() * 25 + 1;
 			productos.add(new Product(ids, nom, precio, true));
-			ids=ids+1;
+			ids = ids + 1;
 		}
+	}
+
+	public static List<Product> getProductos() {
 		return productos;
 	}
 
-
-	public List<Product> getProductos() {
-		return productos;
+	public static void setProductos(List<Product> productos) {
+		ProductStore.productos = productos;
 	}
 
-
-	public void setProductos(List<Product> productos) {
-		this.productos = productos;
-	}
-	
-	public Product findById(int id) {
-		for(Product p:this.productos) {
-			if(p.getId()==id) {
+	public static Product findById(int id) {
+		for (Product p : ProductStore.productos) {
+			if (p.getId() == id) {
 				return p;
 			}
 		}
 		return null;
 	}
-	
-	public Product findByName(String nombre) {
-		for(Product p:this.productos) {
-			if(p.getNombre().contains(nombre)) {
+
+	public static Product findByName(String nombre) {
+		for (Product p : ProductStore.productos) {
+			if (p.getNombre().contains(nombre)) {
 				return p;
 			}
 		}
 		return null;
 	}
-	
-	public void createProduct(HttpServletRequest request) {
+
+	public static void createProduct(String nombre, double precio) {
 		Product pro = new Product();
-		int c=0;
-		pro.setId(this.productos.size()+1);
-		Object nombre = request.getParameter("nombre");
-		Object precio = request.getParameter("precio");
-		if (request.getParameter("nombre")!=null) {
-			pro.setNombre((String)nombre);
-			c++;
+		pro.setId(ProductStore.productos.size() + 1);
+		pro.setNombre((String) nombre);
+		pro.setPrecio((double) precio);
+		ProductStore.productos.add(pro);
+	}
+
+	public static void actualizarProduct(int id, String nombre, double precio) {
+		int idf = 0;
+		Product pd = null;
+		for (int i = 0; i <= ProductStore.productos.size() - 1; i++) {
+			Product p = ProductStore.productos.get(i);
+			if (p.getId() == id) {
+				idf = i;
+				pd = p;
+
+			}
 		}
-		if (request.getParameter("precio")!=null) {
-			pro.setPrecio((double)precio);
-			c++;
+		ProductStore.productos.remove(idf);
+		pd = ProductStore.findById(id);
+		pd.setNombre((String) nombre);
+		pd.setPrecio((double) precio);
+		ProductStore.productos.add(idf, pd);
+	}
+
+	public static void eliminarProduct(int id) {
+		int idf = 0;
+		for (int i = 0; i <= ProductStore.productos.size() - 1; i++) {
+			Product p = ProductStore.productos.get(i);
+			if (p.getId() == id) {
+				idf = i;
+			}
 		}
-		if(c==2) {
-			this.productos.add(pro);
-		}	
+		ProductStore.productos.remove(idf);
 	}
 
 }
