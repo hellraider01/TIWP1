@@ -10,8 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.frontend.dao.ProductStore;
 import com.frontend.models.Product;
-import com.frontend.servicio.ProductStore;
+import com.frontend.service.ActualizarProductoCommand;
+import com.frontend.service.ActualizarUsuarioCommand;
+import com.frontend.service.BuscarProductosCommand;
+import com.frontend.service.CrearProductoCommand;
+import com.frontend.service.CrearUsuarioCommand;
+import com.frontend.service.EliminarProductoCommand;
+import com.frontend.service.HomeCommand;
+import com.frontend.service.IHandlerCommand;
+import com.frontend.service.IrNuevoUsuarioCommand;
+import com.frontend.service.LoginCommand;
+import com.frontend.service.LogoutCommand;
+import com.frontend.service.VerLoginCommand;
+import com.frontend.service.VerProductosCommand;
+import com.frontend.service.VerUsuariosCommand;
+import com.frontend.service.irNuevoProductoCommand;
 
 /**
  * Servlet implementation class IndexServlet
@@ -20,7 +35,7 @@ import com.frontend.servicio.ProductStore;
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// Url automaticas <comando, vista>
-	HashMap<String, String> vistas = new HashMap<String, String>();
+	HashMap<String, IHandlerCommand> vistas = new HashMap<String, IHandlerCommand>();
 
 	ProductStore ps = new ProductStore();
 	List<Product> productos;
@@ -31,22 +46,22 @@ public class IndexServlet extends HttpServlet {
 	public IndexServlet() {
 		super();
 		// acciones de listar, ajustar archivo de referencia de cada "comando"
-		vistas.put("home", "home.jsp");
-		vistas.put("verlogin", "login.jsp");
-		vistas.put("verProductos", "pages/single-product.jsp");
-		vistas.put("buscarProductos", "pages/single-product.jsp");
-		vistas.put("verusuaios", "pages/single-product.jsp");
-		vistas.put("irNuevoProductos", "pages/single-product.jsp");
-		vistas.put("irNuevoUsuario", "pages/single-product.jsp");
+		vistas.put("home", new HomeCommand());
+		vistas.put("verlogin", new VerLoginCommand());
+		vistas.put("verProductos", new VerProductosCommand());
+		vistas.put("buscarProductos", new BuscarProductosCommand());
+		vistas.put("verusuaios", new VerUsuariosCommand());
+		vistas.put("irNuevoProductos", new irNuevoProductoCommand());
+		vistas.put("irNuevoUsuario", new IrNuevoUsuarioCommand());
 		// acciones de crear, actualizar o eleiminar
-		vistas.put("logearse", "pages/single-product.jsp");
-		vistas.put("logout", "pages/single-product.jsp");
-		vistas.put("crearProducto", "pages/single-product.jsp");
-		vistas.put("actualizarProducto", "pages/single-product.jsp");
-		vistas.put("eliminarProducto", "pages/single-product.jsp");
-		vistas.put("crearUsuario", "pages/single-product.jsp");
-		vistas.put("actualizarUsuario", "pages/single-product.jsp");
-		vistas.put("irNuevoUsuario", "pages/single-product.jsp");
+		vistas.put("logearse", new LoginCommand());
+		vistas.put("logout", new LogoutCommand());
+		vistas.put("crearProducto", new CrearProductoCommand());
+		vistas.put("actualizarProducto", new ActualizarProductoCommand());
+		vistas.put("eliminarProducto", new EliminarProductoCommand());
+		vistas.put("crearUsuario", new CrearUsuarioCommand());
+		vistas.put("actualizarUsuario", new ActualizarUsuarioCommand());
+
 	}
 
 	@Override
@@ -65,47 +80,14 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String accion = request.getParameter("accion");
-		String view = vistas.get(accion);
-		System.out.print(view);
-		if (view == null) {
-			view = "404.jsp";
-			request.getRequestDispatcher(view).forward(request, response);
+		IHandlerCommand vista = (IHandlerCommand) vistas.get(accion);
+		String webpage = "";
+		if (vista != null) {
+			webpage = vista.execute(request, response);
 		} else {
-			System.out.println(view);
-			switch (accion) {
-			case "home":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "verlogin":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "verProductos":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "verusuaios":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "buscarProductos":
-				// codigo de accion con el Storage
-				System.out.println(request.getParameter("nombre"));
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "irNuevoProductos":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "eliminarUsuario":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			default:
-				request.getRequestDispatcher(view).forward(request, response);
-			}
+			webpage = "404.jsp";
 		}
+		request.getRequestDispatcher(webpage).forward(request, response);
 	}
 
 	/**
@@ -115,50 +97,16 @@ public class IndexServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 		String accion = request.getParameter("accion");
-		String view = vistas.get(accion);
-		if (view == null) {
-			view = "404.jsp";
-			request.getRequestDispatcher(view).forward(request, response);
+		IHandlerCommand vista = vistas.get(accion);
+		String webpage = "";
+		if (vista != null) {
+			webpage = vista.execute(request, response);
 		} else {
-			System.out.println(view);
-			switch (accion) {
-			case "logearse":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "logout":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "crearProducto":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "actualizarProducto":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "eliminarProducto":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "crearUsuario":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "actualizarUsuario":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			case "eliminarUsuario":
-				// codigo de accion con el Storage
-				request.getRequestDispatcher(view).forward(request, response);
-				break;
-			default:
-				request.getRequestDispatcher(view).forward(request, response);
-			}
+			webpage = "404.jsp";
 		}
+		request.getRequestDispatcher(webpage).forward(request, response);
 	}
 
 }

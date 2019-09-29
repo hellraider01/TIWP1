@@ -1,4 +1,4 @@
-package com.frontend.servicio;
+package com.frontend.dao;
 
 import java.util.ArrayList;
 import java.util.List;
