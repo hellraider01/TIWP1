@@ -8,12 +8,13 @@ public class Usuario {
 	String direccion;
 	String email;
 	String passwd;
+	int rol;
 
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(int id, String nombre, String apellidos, String direccion, String email, String passwd) {
+	public Usuario(int id, String nombre, String apellidos, String direccion, String email, String passwd, int rol) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -21,6 +22,7 @@ public class Usuario {
 		this.direccion = direccion;
 		this.email = email;
 		this.passwd = passwd;
+		this.rol = rol;
 	}
 
 	public int getId() {
@@ -70,5 +72,15 @@ public class Usuario {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
+
+	public int getRol() {
+		return rol;
+	}
+
+	public void setRol(int rol) {
+		this.rol = rol;
+	}
+	
+	
 
 }
