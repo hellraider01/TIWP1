@@ -14,7 +14,7 @@ public class UserStore {
 	
 	
 	public static void init() {
-		usuarios.add(new Usuario(0, "admin", "admin", "avenida universidad", "admin@admin.com", "1234"));
+		usuarios.add(new Usuario(0, "admin", "admin", "avenida universidad", "admin@admin.com", "1234", 0));
 	}
 
 	public static List<Usuario> getUsuarios() {
