@@ -27,8 +27,8 @@ public class LoginCommand implements IHandlerCommand {
 				} 
 				//Si está registrado el usuario le dejará iniciar sesion (los datos son correctos)
 				else {
-					HttpSession session = request.getSession(true);
-					session.setAttribute("user", user);
+					HttpSession sesion = request.getSesion(true);
+					sesion.setAttribute("user", user);
 					response.sendRedirect(" ");
 				}
 							
