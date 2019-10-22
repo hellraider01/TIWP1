@@ -39,12 +39,13 @@
 						</h3>
 						<form class="row contact_form" action="#" method="post"
 							novalidate="novalidate">
+							<input type="hidden" name="accion" value="logearse">
 							<div class="col-md-12 form-group p_star">
-								<input type="text" class="form-control" id="name" name="name"
+								<input type="email" class="form-control" id="name" name="email"
 									value="" placeholder="Username">
 							</div>
 							<div class="col-md-12 form-group p_star">
-								<input type="password" class="form-control" id="password"
+								<input type="password" class="form-control" id="passwd"
 									name="password" value="" placeholder="Password">
 							</div>
 							<div class="col-md-12 form-group">

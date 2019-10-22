@@ -3,6 +3,7 @@ package com.frontend.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.frontend.dao.UserStore;
 
 public class LogoutCommand implements IHandlerCommand {
 
@@ -12,8 +13,9 @@ public class LogoutCommand implements IHandlerCommand {
 
 		HttpSesion sesion = request.getSesion(false);
 		sesion.invalidate();
-		
-		return Contract.URL_LOGIN;
+		//sesion.removeAttribute("user");
+
+		return "home";
 	}
 
 }

@@ -2,7 +2,7 @@ package com.frontend.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.frontend.dao.UserStore;
 import com.frontend.models.Usuario;
 
 public class LoginCommand implements IHandlerCommand {
@@ -11,33 +11,32 @@ public class LoginCommand implements IHandlerCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) 
 		
 				throws ServletException, IOException {
-			
-		if(request.getEmail() != null) {	
+		
+		String email = request.getParameter("email");
+		String passwd = request.getParameter("passwd");
+		String respuesta = "home";
+		
+		if(email!= null && passwd!=null) {	
 				//Se cogen los datos de mail y contraseña introducidos
-				Usuario nuevousuario = new Usuario(); 
-				nuevousuario.setEmail(request.getEmail());
-				nuevousuario.setPasswd(request.getPasswd());
+				Usuario usuario = UserStore.login(email, passwd); 
 			
-				//Se comprueba si el usuario está registrado
-				Usuario user = webResource.request().accept(" ").post(Entity.entity(nuevousuario, MediaType.APPLICATION_JSON_TYPE),Usuario.class);
-				
 				//Si no está registrado el usuario devolvera null (los datos son incorrectos)
-				if(user == null) {
-					response.sendRedirect(" ");
+				if(usuario == null) {
+					respuesta = "404";
 				} 
+				
 				//Si está registrado el usuario le dejará iniciar sesion (los datos son correctos)
 				else {
 					HttpSession sesion = request.getSesion(true);
-					sesion.setAttribute("user", user);
-					response.sendRedirect(" ");
-				}
-							
-							
-				return null;
-			}
-			
+					sesion.setAttribute("user", usuario);
+					respuesta = "home";
+				}		
+				
+		} else { 
+		respuesta = "login";
+		}
 		
-		return "login.jsp";
+		return respuesta;
 	}
 
 }
