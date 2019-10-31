@@ -43,7 +43,7 @@ public class UserStore {
 		return null;
 	}
 
-	public static void createUsuario(String nombre, String passwd, String apellidos, String direccion, String email) {
+	public static void createUsuario(String nombre, String passwd, String apellidos, String direccion, String email, int rol) {
 		Usuario pro = new Usuario();
 		pro.setId(UserStore.usuarios.size() + 1);
 		pro.setNombre(nombre);
@@ -51,6 +51,7 @@ public class UserStore {
 		pro.setApellidos(apellidos);
 		pro.setDireccion(direccion);
 		pro.setEmail(email);
+		pro.setRol(rol);
 		UserStore.usuarios.add(pro);
 	}
 
