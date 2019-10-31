@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.frontend.dao.CategoriaStore;
+import com.frontend.dao.DataSource;
 import com.frontend.dao.ProductStore;
 import com.frontend.dao.UserStore;
 import com.frontend.models.Product;
@@ -69,6 +70,7 @@ public class IndexServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
+		DataSource.init();
 		ProductStore.init();
 		UserStore.init();
 		CategoriaStore.init();
