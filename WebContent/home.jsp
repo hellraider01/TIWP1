@@ -256,8 +256,7 @@
 
 <!-- subscribe_area part start-->
 <section class="instagram_photo">
-	<div
-		class="container-fluid>
+	<div class="container-fluid" >
             <div class="row">
                 <div class="col-lg-12">
                     <div class="instagram_photo_iner">
@@ -286,7 +285,7 @@
             </div>
         </div>
     </section>
-    <!--::subscribe_area part end::-->
+
     
 <jsp:include page="partials/footer.jsp"/>
    
